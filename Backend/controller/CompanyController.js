@@ -8,7 +8,7 @@ class UserController {
     await company
       .save()
       .then(response => {
-        return res.status(200).json("Empresa criada")
+        return res.status(200).json(response.id)
       }).catch((err) => {
         return res.status(500).json("Houve um erro ao criar a empresa " + err)
       });

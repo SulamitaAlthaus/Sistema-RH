@@ -47,7 +47,7 @@ const User = db.define('users', {
         defaultValue: "123456"
     },
     cep: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     rua: {

@@ -59,58 +59,46 @@ export const Form = styled.div`
         :focus{
             border: 1px solid #8A2BE2;
         }
+        :disabled {
+            :hover{
+                border: 1px solid #D3D3D3;
+            }
+            :focus{
+                border: 1px solid #D3D3D3;
+            }
+        }
     }
-    #nome{
+    #nome, #email, #segmento{
         width: 60%;
     }
     #telefone{
         width: 40%;
     }
-    #segmento{
-        width: 60%;
-    }
-    #email{
-        width: 60%;
-    }
-    #matricula{
+    #numero, #estado{
         width: 20%;
     }
-    #dataNasc{
-        width: 25%;
-    }
-    #funcao{
-        width: 50%;
-    }
-    #dataAdmissao{
-        width: 25%;
-    }
-    #password1, #password2 {
-        width: 50%;
-    }
-    #cep{
+    #dataNasc, #dataAdmissao{
         width: 30%;
     }
-    #numero{
-        width: 20%;
+    #funcao, #password1, #password2{
+        width: 50%;
+    }
+    #cep, #cidade{
+        width: 30%;
     }
     #complemento{
         width: 65%;
     }
-    #cidade{
-        width: 30%;
-    }
-    #estado{
-        width: 20%;
-    }
 `;
 
 export const Button = styled.button`
-    width: 150px;
-    height: 40px;
+    width: 140px;
+    height: 30px;
     border: none;
+    outline: none;
     border-radius: 20px;
-    margin-top: 5px;
-    font-size: 1rem;
+    margin-top: 10px;
+    font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
     font-family: Arial, sans-serif;
@@ -118,5 +106,9 @@ export const Button = styled.button`
     color: #FFFFFF;
     :hover{
         border: 1px solid #D3D3D3;
+    }
+    :disabled {
+        background-color: #D3D3D3;
+        cursor: auto;
     }
 `;

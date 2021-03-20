@@ -25,7 +25,7 @@ const Company = db.define('company', {
         allowNull: false
     },
     cep: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     rua: {

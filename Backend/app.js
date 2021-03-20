@@ -13,6 +13,7 @@ app.get('/', (req, res) =>{
 
 const UserRoutes = require('./routes/UserRoutes');
 app.use('/', UserRoutes);
+app.use('/register', UserRoutes);
 
 
 
