@@ -39,6 +39,28 @@ export const Account = styled.div`
 
 export const Form = styled.div`
     padding: 50px;
+    #msgError, #msgErrorUser {
+    color: #861212;
+    width: 85%;
+    height: 25px;
+    text-align: center;
+    background-color: #EEA3A3;
+    border-radius: 10px;
+    margin-bottom:-15px;
+    }
+    #msgSuccess {
+    color: #2F4F4F;
+    width: 85%;
+    height: 25px;
+    text-align: center;
+    background-color: #90EE90;
+    border-radius: 10px;
+    }
+    #msgErrorCep, #msgErrorCepA{
+        color: #861212;
+        font-size: 0.2;
+        margin:-15px 0;
+    }
     h1,h3{
         margin-bottom: 2px;
     }
