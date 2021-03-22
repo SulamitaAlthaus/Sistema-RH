@@ -76,10 +76,10 @@ const UserRoutes = require('./routes/UserRoutes');
 app.use('/', UserRoutes);
 app.use('/register', UserRoutes);
 
-app.get('/login', (req, res) => {
+app.get('/home', verifyJWT, (req, res) => {
 })
 
-app.get('/home', verifyJWT, (req, res) => {
+app.get('/login', (req, res) => {
 })
 
 app.post('/login', redirectHome, async (req, res) => {
