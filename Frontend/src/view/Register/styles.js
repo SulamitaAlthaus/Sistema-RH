@@ -17,6 +17,19 @@ export const Container = styled.div`
         width: 3px;
 
     }
+    @media only screen and (max-width: 600px){
+        display: grid;
+        flex-direction: column;
+        height: 100%;
+        width: 85%;
+        margin: 5%;
+        hr{
+            background-color: #8A2BE2;
+            height: 1vh;
+            width: 80%;
+
+    } 
+  }
 `;
 
 export const Company = styled.div`
@@ -26,6 +39,16 @@ export const Company = styled.div`
     align-items: center;
     justify-content: center;
     margin: auto;
+    
+    @media only screen and (max-width: 600px){
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: auto;
+        width: 100%;
+        top: 0;
+  }
+
 `;
 
 export const Account = styled.div`
@@ -35,6 +58,15 @@ export const Account = styled.div`
     align-items: center;
     justify-content: center;
     margin: auto;
+
+    @media only screen and (max-width: 600px){
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: auto;
+        width: 100%;
+  }
+
 `;
 
 export const Form = styled.div`
@@ -110,6 +142,24 @@ export const Form = styled.div`
     }
     #complemento{
         width: 65%;
+    }
+    @media only screen and (max-width: 600px){
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 5% auto;
+        width: 100%;
+        input{
+            width: 90%;
+        }
+        #nome, #email, #segmento, #telefone, #numero, #estado,
+        #dataNasc, #dataAdmissao, #funcao, #password1, #password2,
+        #cep, #cidade, #complemento{
+            width: 90%;
+        }#msgError, #msgErrorUser,#msgSuccess {
+            height: 50px;
+            margin: auto;
+        }
     }
 `;
 

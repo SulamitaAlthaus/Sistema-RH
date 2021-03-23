@@ -7,6 +7,16 @@ export const Container = styled.div`
   margin-top: -10px;
   height: 100vh;
   width: 100vw;
+
+  @media only screen and (max-width: 600px){
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    background: #8A2BE2;
+    height: 100%;
+    margin: auto;
+    overflow-y: hidden;
+  }
 `;
 export const Left = styled.div`
     display: flex;
@@ -16,6 +26,12 @@ export const Left = styled.div`
     margin-left: -10px;
     background: #8A2BE2;
     padding: 45px;
+
+    @media only screen and (max-width: 600px){
+      padding: 5%;
+      margin: auto;
+      margin-top: 5%;
+    }
 `;
 export const Slogan = styled.div`
     height: 90%;
@@ -31,11 +47,19 @@ export const Text = styled.div`
     font-size: 5rem;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
+
+    @media only screen and (max-width: 600px){
+      position: relative;
+      font-size: 2rem;
+      padding: 0 10px;
+      width: 80%;
+      text-align: center;
+      margin: auto;
+    }
 `;
 export const Image = styled.img.attrs({ src: `${account}` })`
     width: 40%;
     margin-bottom: 10px;
-
 `;
 
 export const Form = styled.form`
@@ -94,5 +118,25 @@ export const Form = styled.form`
     font-weight: bold;
     color: #8A2BE2;
     text-decoration: none;
+  }
+  @media only screen and (max-width: 600px){
+    margin-top: 10%;
+    width: 70%;
+    margin-bottom: 50%;
+    p {
+      font-size: 0.7rem;
+    }
+    input {
+      width: 95%;
+      height: 5%;
+    }
+    button{
+      width: 55%;
+      font-size: 0.9rem;
+      height: 5vh;
+    } 
+    h3{
+      font-size: 0.9rem;
+  }
   }
 `;
