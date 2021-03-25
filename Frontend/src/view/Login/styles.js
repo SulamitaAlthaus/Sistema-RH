@@ -40,11 +40,11 @@ export const Slogan = styled.div`
 `;
 export const Text = styled.div` 
     position: absolute;
-    bottom: 0;
+    bottom: 10%;
     padding: 45px;
     width: 30%;
     color: #FFFFFF;
-    font-size: 5rem;
+    font-size: 5.5rem;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
 

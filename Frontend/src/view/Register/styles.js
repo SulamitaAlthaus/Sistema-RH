@@ -17,7 +17,7 @@ export const Container = styled.div`
         width: 3px;
 
     }
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 1000px){
         display: grid;
         flex-direction: column;
         height: 100%;
@@ -40,7 +40,7 @@ export const Company = styled.div`
     justify-content: center;
     margin: auto;
     
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 1000px){
         display: flex;
         flex-direction: column;
         padding: 0;
@@ -59,7 +59,7 @@ export const Account = styled.div`
     justify-content: center;
     margin: auto;
 
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 1000px){
         display: flex;
         flex-direction: column;
         padding: 0;
@@ -72,7 +72,7 @@ export const Account = styled.div`
 export const Form = styled.div`
     padding: 50px;
     #msgError, #msgErrorUser {
-    color: #861212;
+    color: #FF0000;
     width: 85%;
     height: 25px;
     text-align: center;
@@ -89,7 +89,7 @@ export const Form = styled.div`
     border-radius: 10px;
     }
     #msgErrorCep, #msgErrorCepA{
-        color: #861212;
+        color: #FF0000;
         font-size: 0.2;
         margin:-15px 0;
     }
@@ -143,7 +143,7 @@ export const Form = styled.div`
     #complemento{
         width: 65%;
     }
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 1000px){
         display: flex;
         flex-direction: column;
         padding: 0;

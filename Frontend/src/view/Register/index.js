@@ -4,6 +4,8 @@ import { format } from 'date-fns'
 import Cep from "react-simple-cep-mask";
 import api from "../../service/api"
 import BuscaCep from "cep-promise"
+import Cnpj from "@react-br-forms/cpf-cnpj-mask";
+import Telefone from 'react-input-mask';
 
 function Register() {
     const [msgSuccess, setMsgSuccess] = useState("");
@@ -15,8 +17,10 @@ function Register() {
     const [cepCompany, setCepCompany] = useState("");
     const [cep, setCep] = useState("");
     const [cnpj, setCnpj] = useState("");
+    const [mask, setMask] = useState("");
     const [nome, setNome] = useState("");
     const [telefone, setTelefone] = useState("");
+    const [telefoneA, setTelefoneA] = useState("");
     const [segmento, setSegmento] = useState("");
     const [numero, setNumero] = useState("");
     const [rua, setRua] = useState("");
@@ -31,6 +35,7 @@ function Register() {
     const [funcao, setFuncao] = useState("");
     const [dataNascimento, setDataNasc] = useState("");
     const [dataAdm, setDataAdm] = useState("");
+    const [password1, setPassword1] = useState("");
     const [password, setPassword] = useState("");
 
 
@@ -62,21 +67,32 @@ function Register() {
         if (valor && valor.length === 9) {
             BuscaCep(valor, { timeout: 5000, providers: ['brasilapi'] })
                 .then((res) => {
-                    if(valor===cepCompany){
+                    if (valor === cepCompany) {
                         setRua(res.street)
                         setCidade(res.city)
                         setEstado(res.state)
-                    } else if (valor===cep){
+                    } else if (valor === cep) {
                         setRuaA(res.street)
                         setCidadeA(res.city)
                         setEstadoA(res.state)
                     }
                 }).catch(err => {
-                    if(valor===cepCompany){
-                        setMsgErrorCep("CEP não encontrado")}
-                    else{
-                        setMsgErrorCepA("CEP não encontrado")}
+                    if (valor === cepCompany) {
+                        setMsgErrorCep("CEP não encontrado")
+                    }
+                    else {
+                        setMsgErrorCepA("CEP não encontrado")
+                    }
                 })
+        }
+    }
+
+    function ValidatePassword(valor){
+        if(password1 === valor){
+            setPassword(valor)
+            document.getElementById('password2').setAttribute("style", "border-color: #CACFD2");
+        } else {
+            document.getElementById('password2').setAttribute("style", "border-color: #FF0000");
         }
     }
 
@@ -97,9 +113,9 @@ function Register() {
             let cep = document.getElementById("cep")
             for (var i = 0; i < company.length; i++) {
                 if (!company[i].value) {
-                    company[i].setAttribute("style", "border-color: #861212");
+                    company[i].setAttribute("style", "border-color: #FF0000");
                     if (!cep.value) {
-                        cep.setAttribute("style", "border-color: #861212");
+                        cep.setAttribute("style", "border-color: #FF0000");
                     } else {
                         cep.setAttribute("style", "border-color: #CACFD2");
                     }
@@ -112,28 +128,31 @@ function Register() {
 
     }
 
-    async function saveAdmin() {
-        await api.post(`/register/newuser`,
-            {
-                companyId, nome, email, telefone, dataNasc: `${dataNascimento}T16:08:08.061Z`,
-                funcao, dataAdmissao: `${dataAdm}T16:08:08.061Z`, password,
-                cep, numero, rua: ruaA, complemento, cidade: cidadeA, estado: estadoA
-            }
-        ).then(() => {
-            window.location.replace('/home')
-        }).catch((err) => {
-            setMsgErrorUser("Verifique os campos em vermelho")
-            console.log(err)
-            // setMsgErrorUser("teste" + err)
-            let admin = document.getElementsByName("admin")
-            for (var i = 0; i < admin.length; i++) {
-                if (!admin[i].value) {
-                    admin[i].setAttribute("style", "border-color: #861212");
-                } else {
-                    admin[i].setAttribute("style", "border-color: #CACFD2");
+    async function saveAdmin() { 
+            await api.post(`/register/newuser`,
+                {
+                    companyId, nome, email, telefone: telefoneA, dataNasc: `${dataNascimento}T16:08:08.061Z`,
+                    funcao, dataAdmissao: `${dataAdm}T16:08:08.061Z`, password,
+                    cep, numero, rua: ruaA, complemento, cidade: cidadeA, estado: estadoA, roleId: 1
                 }
-            }
-        })
+            ).then(() => {
+                window.location.replace('/home')
+            }).catch((err) => {
+                setMsgErrorUser("Verifique os campos em vermelho")
+                let admin = document.getElementsByName("admin")
+                for (var i = 0; i < admin.length; i++) {
+                    if (!admin[i].value) {
+                        admin[i].setAttribute("style", "border-color: #FF0000");
+                    } else {
+                        admin[i].setAttribute("style", "border-color: #CACFD2");
+                    }
+                }
+            })
+            
+        if(dataNascimento === "" || dataAdm === ""){
+            document.getElementById("dataNasc").setAttribute("style", "border-color: #FF0000");
+            document.getElementById("dataAdmissao").setAttribute("style", "border-color: #FF0000");
+        }
     }
 
     useEffect(() => {
@@ -150,11 +169,11 @@ function Register() {
                     <form id="company">
                         <h1>Empresa</h1>
                         <label for="cnpj">CNPJ:</label>
-                        <input id="cnpj" type="text" name="company" onChange={e => setCnpj(e.target.value)} />
+                        <Cnpj id="cnpj" value={cnpj} name="company" onChange={(e, type) => { setCnpj(e.target.value); setMask(type === "CNPJ"); }} /><br />
                         <label for="nome">Nome Fantasia:</label>
                         <input id="nome" type="text" name="company" onChange={e => setNome(e.target.value)} />
                         <label for="telefone">Telefone:</label>
-                        <input id="telefone" type="text" name="company" onChange={e => setTelefone(e.target.value)} /><br />
+                        <Telefone mask="(99) 99999 9999" id="telefone" name="company" onChange={e => setTelefone(e.target.value)} /><br />
                         <label for="segmento">Segmento:</label>
                         <input id="segmento" type="text" name="company" onChange={e => setSegmento(e.target.value)} />
                         <h3>Endereço</h3>
@@ -186,7 +205,7 @@ function Register() {
                         <label for="email">Email:</label>
                         <input id="email" type="email" name="admin" onChange={e => setEmail(e.target.value)} /><br />
                         <label for="telefone">Telefone:</label>
-                        <input id="telefone" type="text" name="admin" onChange={e => setTelefone(e.target.value)} /><br />
+                        <Telefone mask="(99) 99999 9999" id="telefone" name="admin" onChange={e => setTelefoneA(e.target.value)} /><br />
                         <label for="dataNasc">Data Nasc:</label>
                         <input id="dataNasc" type="date" defaultValue={date}
                             min="1920-01-01" max={date} name="admin" onChange={e => setDataNasc(e.target.value)} /><br />
@@ -196,13 +215,13 @@ function Register() {
                         <input id="dataAdmissao" type="date" defaultValue={date}
                             min="1920-01-01" max={date} name="admin" onChange={e => setDataAdm(e.target.value)} /><br />
                         <label for="password1">Senha:</label>
-                        <input id="password1" type="password" name="admin" onChange={e => setPassword(e.target.value)} /><br />
+                        <input id="password1" type="password" name="admin" onChange={e => setPassword1(e.target.value)}/><br />
                         <label for="password2">Confirme a Senha:</label>
-                        <input id="password2" type="password" name="admin" />
+                        <input id="password2" type="password" name="admin" onChange={e => ValidatePassword(e.target.value)}/>
                         <h3>Endereço</h3>
                         {!msgErrorCepA ? null : <div id="msgErrorCepA"> <p>{msgErrorCepA}</p></div>}
                         <label for="cep">CEP:</label>
-                        <Cep id="cep" value={cep} onChange={BuscarCep(cep),(cep) => setCep(cep)} name="admin" />
+                        <Cep id="cep" value={cep} onChange={BuscarCep(cep), (cep) => setCep(cep)} name="admin" />
                         <label for="numero">Número:</label>
                         <input id="numero" type="text" name="admin" onChange={e => setNumero(e.target.value)} /><br />
                         <label for="rua">Rua:</label>

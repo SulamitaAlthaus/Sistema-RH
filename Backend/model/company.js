@@ -13,11 +13,15 @@ const Company = db.define('company', {
         allowNull: false
     },
     cnpj: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: {
+            args: true,
+            msg: 'Esse CNPJ já está cadastrado!'
+        },
     },
     telefone: {
-        type: Sequelize.STRING(11),
+        type: Sequelize.STRING(15),
         allowNull: false
     },
     segmento: {

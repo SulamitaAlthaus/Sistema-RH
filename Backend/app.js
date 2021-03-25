@@ -38,7 +38,7 @@ app.use(session({
 }))
 
 const redirectLogin = (req, res, next) => {
-    if (!req.session.userId) {
+    if (!req.session.userId && !req.token) {
         res.redirect('/login')
     } else {
         next()
@@ -64,6 +64,7 @@ function verifyJWT(req, res, next) {
         next();
     } else {
         res.sendStatus(401);
+        redirectLogin();
     }
 }
 
@@ -76,7 +77,7 @@ const UserRoutes = require('./routes/UserRoutes');
 app.use('/', UserRoutes);
 app.use('/register', UserRoutes);
 
-app.get('/home', verifyJWT, (req, res) => {
+app.get('/home', redirectLogin, (req, res) => {
 })
 
 app.get('/login', (req, res) => {

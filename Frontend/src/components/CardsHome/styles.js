@@ -1,0 +1,74 @@
+import styled from "styled-components";
+import users from "../../assets/users-gray.svg";
+import money from "../../assets/money-gray.svg";
+import jobs from "../../assets/jobs-gray.svg";
+
+export const Container = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+
+`;
+export const Card = styled.div`
+    display: flex;
+    justify-items: center; 
+    flex-direction: column;
+    height: 30vh;
+    width: 30%;
+    margin-top: 3%;
+    margin-right: 3%;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    :hover{
+        border: 2px solid #8A2BE2;
+    }
+
+    #header{
+        display: flex;
+        justify-content: center;
+        width: 50%;
+        margin: 0 auto 0 auto;
+        height: 8vh;
+    }
+    h2{
+        font-size: 1.5rem;
+        margin-left: 10%;
+    }
+`;
+
+export const Links = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+    a{
+        margin: 1.5% auto;
+        text-decoration: none;
+        :hover{
+            text-decoration: underline;
+        }
+    }
+
+`;
+export const Users = styled.img.attrs({ src: `${users}` })`
+    width: 45px;
+    height: 8vh;
+    margin-left: 10%;
+    margin-top: 5%;
+
+`;
+export const Money = styled.img.attrs({ src: `${money}` })`
+    width: 45px;
+    height: 8vh;
+    margin-left: 10%;
+    margin-top: 5%;
+
+`;
+export const Jobs = styled.img.attrs({ src: `${jobs}` })`
+    width: 40px;
+    height: 8vh;
+    margin-left: 10%;
+    margin-top: 5%;
+
+`;

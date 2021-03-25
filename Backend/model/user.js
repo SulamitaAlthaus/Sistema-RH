@@ -27,7 +27,7 @@ const User = db.define('users', {
         }
     },
     telefone: {
-        type: Sequelize.STRING(11),
+        type: Sequelize.STRING(15),
         allowNull: false
     },
     dataNasc: {
@@ -59,13 +59,19 @@ const User = db.define('users', {
         allowNull: false
     },
     complemento: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(100)
     },
     cidade: {
         type: Sequelize.STRING(20),
+        allowNull: false
     },
     estado: {
-        type: Sequelize.STRING(2)
+        type: Sequelize.STRING(2),
+        allowNull: false
+    },
+    roleId: {
+        type: Sequelize.SMALLINT,
+        allowNull: false
     }
 });
 
