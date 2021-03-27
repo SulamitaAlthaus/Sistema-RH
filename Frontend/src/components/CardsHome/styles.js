@@ -6,7 +6,10 @@ import jobs from "../../assets/jobs-gray.svg";
 export const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
-
+    a{
+        text-decoration: none;
+        color: #000000;
+    }
 `;
 export const Card = styled.div`
     display: flex;
@@ -35,18 +38,40 @@ export const Card = styled.div`
         font-size: 1.5rem;
         margin-left: 10%;
     }
+
+    @media only screen and (max-width: 600px) {
+        margin: 5% auto;
+        height: 23vh;
+        width: 80%;
+        #header{
+            justify-content: center;
+            align-items: center;
+            height: 30%;
+            width: 100%;
+        }
+        h2{
+            font-size: 150%;
+            margin: auto auto auto 0;
+        }
+    }
 `;
 
 export const Links = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: auto;
+    margin: 5% auto;
     a{
         margin: 1.5% auto;
         text-decoration: none;
         :hover{
             text-decoration: underline;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        a{
+            font-size: 90%;
         }
     }
 
@@ -56,6 +81,11 @@ export const Users = styled.img.attrs({ src: `${users}` })`
     height: 8vh;
     margin-left: 10%;
     margin-top: 5%;
+    
+    @media only screen and (max-width: 600px) {
+        height: 50%;
+        margin: auto 0 auto auto;
+    }
 
 `;
 export const Money = styled.img.attrs({ src: `${money}` })`
@@ -64,11 +94,21 @@ export const Money = styled.img.attrs({ src: `${money}` })`
     margin-left: 10%;
     margin-top: 5%;
 
+    @media only screen and (max-width: 600px) {
+        height: 50%;
+        margin: auto 0 auto auto;
+    }
+
 `;
 export const Jobs = styled.img.attrs({ src: `${jobs}` })`
     width: 40px;
     height: 8vh;
     margin-left: 10%;
     margin-top: 5%;
+
+    @media only screen and (max-width: 600px) {
+        height: 50%;
+        margin: auto 0 auto auto;
+    }
 
 `;

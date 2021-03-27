@@ -16,16 +16,26 @@ export const Container = styled.div`
         width: 90%;
         margin: 0 auto;
     }
+    @media only screen and (max-width: 600px) {
+        width: 80%;
+        height: 100%;
+        padding: 2%;
+        margin: 0 auto;
+    }
 
 `;
 
 export const Welcome = styled.div`
-    text-transform: capitalize;
     font-size: 2rem;
     font-weight: 700;
     margin-left: 10%;
     margin-top: 3%;
     height: 10vh;
+    
+    @media only screen and (max-width: 600px) {
+        font-size: 160%;
+        margin: 8vh auto auto auto;
+    }
 `;
 
 
@@ -33,9 +43,19 @@ export const Card = styled.div`
     margin: 5% auto 5% 6%;
     width: 90%;
     h1{
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         margin-left: 5%;
     }
     
+    @media only screen and (max-width: 600px) {
+        margin: auto;
+        width: 100%;
+        h1{
+            width: 100%;
+            margin: auto;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+    }
 `;
 
