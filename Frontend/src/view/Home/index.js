@@ -42,7 +42,7 @@ function Home(props) {
                 <hr />
                 <S.Card>
                     <h1>O que você deseja fazer?</h1>
-                    <CardsHome />
+                    <CardsHome/>
                 </S.Card>
 
             </S.Container>

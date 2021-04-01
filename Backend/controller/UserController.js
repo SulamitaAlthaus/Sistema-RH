@@ -26,7 +26,7 @@ class UserController {
   }
 
   async all(req, res) {
-    await UserModel.findAll({})
+    await UserModel.findAll({ where: { companyId: req.params.companyId } })
       .then(response => {
         return res.status(200).json(response);
       })

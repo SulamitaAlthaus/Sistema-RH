@@ -3,12 +3,19 @@ import * as S from "./styles";
 import api from "../../service/api"
 import SideMenu from "../sidemenu"
 import { format } from 'date-fns'
+import BuscaCep from "cep-promise"
+import Cep from "react-simple-cep-mask";
 
-
-function User({matricula, funcao, nome, email, telefone, cep, numero, rua, complemento, cidade, estado}) {
+function User({ matricula, funcao, nome, email, telefone, numero, complemento }) {
     const [user, setUser] = useState({})
     const [dataNasc, setDataNasc] = useState("")
     const [dataAdmissao, setDataAdmissao] = useState("")
+    const [msgErrorCep, setMsgErrorCep] = useState("");
+    const [cep, setCep] = useState("");
+    const [rua, setRua] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [estado, setEstado] = useState("");
+
 
     async function loadUser() {
         let url = window.location.href.split('/')
@@ -16,8 +23,12 @@ function User({matricula, funcao, nome, email, telefone, cep, numero, rua, compl
 
         await api.get(`/user/showid/${matricula}`).then((res) => {
             setUser(res.data)
-            setDataNasc(format(new Date(res.data.dataNasc), 'dd/MM/yyyy'))
-            setDataAdmissao(format(new Date(res.data.dataAdmissao), 'dd/MM/yyyy'))
+            setDataNasc(format(new Date(res.data.dataNasc), 'yyyy-MM-dd'))
+            setDataAdmissao(format(new Date(res.data.dataAdmissao), 'yyyy-MM-dd'))
+            setCep(res.data.cep)
+            setRua(res.data.rua)
+            setCidade(res.data.cidade)
+            setEstado(res.data.estado)
         })
     }
 
@@ -48,20 +59,40 @@ function User({matricula, funcao, nome, email, telefone, cep, numero, rua, compl
     }
 
     async function saveUser() {
-        await api.put(`/user/update/${user.matricula}`,{
-            matricula, funcao, nome, email, telefone, cep, numero, rua, complemento, cidade, estado
-        }).then(() => {
-                let content = document.getElementsByName("content")
-                for (var i = 0; i < content.length; i++) {
-                    content[i].setAttribute("disabled", true);
-                    document.getElementById("save").setAttribute("style", "display: none")
-                    document.getElementById("edit").setAttribute("style", "display: flex, alignItems: center")
-                }
-            }).catch(err => {
-                console.log(err)
-            })
-    }
 
+        await api.put(`/user/update/${user.matricula}`, {
+            matricula, funcao, nome, email, telefone,
+            dataNasc: `${dataNasc}T16:08:08.061Z`,
+            dataAdmissao: `${dataAdmissao}T16:08:08.061Z`,
+            cep, numero, rua, complemento, cidade, estado
+        }).then(() => {
+            let content = document.getElementsByName("content")
+            for (var i = 0; i < content.length; i++) {
+                content[i].setAttribute("disabled", true);
+                document.getElementById("save").setAttribute("style", "display: none")
+                document.getElementById("edit").setAttribute("style", "display: flex, alignItems: center")
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+    function BuscarCep(valor) {
+        if (valor && valor.length === 9) {
+            BuscaCep(valor, { timeout: 5000, providers: ['brasilapi'] })
+                .then((res) => {
+                    if (valor === cep) {
+                        setRua(res.street)
+                        setCidade(res.city)
+                        setEstado(res.state)
+                        document.getElementById("rua").setAttribute("value", res.street)
+                        document.getElementById("cidade").setAttribute("value", res.city)
+                        document.getElementById("estado").setAttribute("value", res.state)
+                    }
+                }).catch(err => {
+                    setMsgErrorCep("CEP não encontrado")
+                })
+        }
+    }
 
 
     useEffect(() => {
@@ -97,30 +128,31 @@ function User({matricula, funcao, nome, email, telefone, cep, numero, rua, compl
                         <label>Nome:
                     <input name="content" disabled={true} defaultValue={user.nome} onChange={e => nome = (e.target.value)} /> </label>
                         <label>Data de Admissão:
-                    <input name="content" disabled={true} defaultValue={dataAdmissao} onChange={e => setDataAdmissao(e.target.value)} /> </label>
+                    <input name="content" disabled={true} defaultValue={dataAdmissao} type="date" onChange={e => setDataAdmissao(e.target.value)} /> </label>
                         <label>Email:
                     <input name="content" disabled={true} defaultValue={user.email} onChange={e => email = (e.target.value)} /> </label>
                         <label>Telefone:
                     <input name="content" disabled={true} defaultValue={user.telefone} onChange={e => telefone = (e.target.value)} /> </label>
                         <label>Data de Nascimento:
-                    <input name="content" disabled={true} defaultValue={dataNasc} onChange={e => setDataNasc(e.target.value)} /> </label>
+                    <input name="content" disabled={true} defaultValue={dataNasc} type="date" onChange={e => setDataNasc(e.target.value)} /> </label>
 
                     </div>
                     <br />
                     <h2>Endereço</h2>
+                    {!msgErrorCep ? null : <div id="msgErrorCep"> <p>{msgErrorCep}</p></div>}
                     <div id="address">
                         <label>CEP:
-                    <input name="content" disabled={true} defaultValue={user.cep} onChange={e => cep = (e.target.value)} /> </label>
+                        <Cep id="cep" disabled={true} name="content" value={cep} onChange={BuscarCep(cep), (cep) => setCep(cep)} /></label>
                         <label>Número:
                     <input name="content" disabled={true} defaultValue={user.numero} onChange={e => numero = (e.target.value)} /> </label>
                         <label>Rua:
-                    <input name="content" disabled={true} defaultValue={user.rua} onChange={e => rua = (e.target.value)} /> </label>
+                    <input name="content" id="rua" disabled={true} defaultValue={user.rua} onChange={e => setRua(e.target.value)} /> </label>
                         <label>Complemento:
                     <input name="content" disabled={true} defaultValue={user.complemento} onChange={e => complemento = (e.target.value)} /> </label>
                         <label>Cidade:
-                    <input name="content" disabled={true} defaultValue={user.cidade} onChange={e => cidade = (e.target.value)} /> </label>
+                    <input name="content" id="cidade" disabled={true} defaultValue={user.cidade} onChange={e => setCidade(e.target.value)} /> </label>
                         <label>Estado:
-                    <input name="content" disabled={true} defaultValue={user.estado} onChange={e => estado = (e.target.value)} /> </label>
+                    <input name="content" id="estado" disabled={true} defaultValue={user.estado} onChange={e => setEstado(e.target.value)} /> </label>
                     </div>
                 </S.Content>
             </S.Container>

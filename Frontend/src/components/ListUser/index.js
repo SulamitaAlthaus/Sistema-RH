@@ -6,15 +6,20 @@ import SideMenu from "../sidemenu"
 
 function ListUser() {
     const [users, setUsers] = useState([]);
-    console.log(users)
     const [search, setSearch] = useState("");
-    const filteredUser = users.filter(user => { return (user.nome.toLowerCase().includes(search.toLowerCase())) })
-
+    const company = localStorage.getItem('@companyId');
+    const filteredUser = users.filter(user => {
+        return (user.nome.toLowerCase().includes(search.toLowerCase()))
+        // if (typeof search === 'string') 
+        // else {
+        //     return user.matricula.includes(parseInt(search))}
+        
+    })
 
     async function loadUsers() {
-        await api.get(`/users/user/filter/all`)
+        await api.get(`/user/show/${company}`)
             .then(response => {
-                    setUsers(response.data)
+                setUsers(response.data)
             }).catch(err => {
                 console.log(err)
             })
@@ -22,7 +27,10 @@ function ListUser() {
 
     function listUser(matricula) {
         window.location.replace(`user/${matricula}`)
-        console.log(matricula)
+    }
+
+    function newUser() {
+        window.location.replace(`newuser`)
     }
 
     useEffect(() => {
@@ -40,7 +48,7 @@ function ListUser() {
                         <input type="text" placeholder="Pesquise o usuário pelo nome"
                             onChange={e => setSearch(e.target.value)} />
                     </S.Search>
-                    <S.Button>+ NOVO USUÁRIO</S.Button>
+                    <S.Button onClick={newUser}>+ NOVO USUÁRIO</S.Button>
                 </S.Header>
                 <hr />
                 <S.Users>

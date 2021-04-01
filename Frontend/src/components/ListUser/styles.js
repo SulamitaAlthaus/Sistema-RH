@@ -139,10 +139,11 @@ export const Content = styled.div`
         align-items: center;
         width: 100%;
         margin-bottom: 1%;
-        text-align: center;
+        text-align: right;
     }
 
     input{
+        display: flex;
         height: 60%;
         border: 1px solid #999999;
         border-radius: 20px;
@@ -187,6 +188,9 @@ export const Content = styled.div`
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
         width: 80%;
+        input{
+            width: 100%;
+        }
     }
 `;
 export const Users = styled.div`

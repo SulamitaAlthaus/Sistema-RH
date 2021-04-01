@@ -6,8 +6,8 @@ const CompanyController = require('../controller/CompanyController');
 
 router.post('/newuser', UserController.create);
 router.put('/user/update/:matricula', UserController.update);
-router.get('/user/filter/all/', UserController.all);
-router.get('/user/show/:nome', UserController.showName);
+router.get('/user/show/:companyId/', UserController.all);
+router.get('/user/show/:nome/', UserController.showName);
 router.get('/user/showid/:matricula', UserController.showMatricula);
 router.delete('/user/delete/:matricula', UserController.delete);
 
