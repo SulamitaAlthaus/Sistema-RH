@@ -1,4 +1,4 @@
-# App Agenda
+# Sistema-RH
 ## Aplicativo para cadastro de funcionários
 
 ### Status do projeto: Em andamento
@@ -18,7 +18,7 @@
     - Candidatar a alguma vaga
 
 ### Demonstração da aplicação 
-    https://creativecode-app.herokuapp.com/
+    https://sistema-rh.herokuapp.com/
 
     - Aguarde alguns minutos para carregar a página, caso ocorra algum erro, atualize e tente novamente
 
