@@ -6,8 +6,8 @@
 ### Features
     Admin
     - Cadastrar funcionários
-    - Visualizar e disparar de Holerites
-    - Anuncio de vagas internas da empresa
+    - Visualizar e disparar Holerites
+    - Anunciar vagas internas da empresa
     - Visualizar candidatos para as vagas disponíveis
 
     Funcionário
@@ -47,7 +47,7 @@ O servidor inciará na porta:8081 - acesse <http://localhost:8081>
 ### Rodando o Front End
 
 #### Acesse a pasta do projeto no terminal/cmd
-$ cd web
+$ cd frontend
 
 #### Instale as dependências
 $ npm install
