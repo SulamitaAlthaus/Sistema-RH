@@ -12,7 +12,7 @@
 
     Funcionário
     - Visualizar seus dados registrados na empresa
-    - Solicitar de revisão dos dados
+    - Solicitar revisão dos dados
     - Visualizar Holerite
     - Visualizar vagas disponíveis na empresa
     - Candidatar a alguma vaga
