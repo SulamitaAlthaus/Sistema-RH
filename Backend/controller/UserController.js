@@ -8,7 +8,7 @@ class UserController {
     await user
       .save()
       .then(response => {
-        return res.status(200).json("Usuário criado")
+        return res.status(200).json(response)
       }).catch((err) => {
         return res.status(500).json("Houve um erro ao criar o usuário " + err)
       });

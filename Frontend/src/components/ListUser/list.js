@@ -5,8 +5,10 @@ import SideMenu from "../sidemenu"
 import { format } from 'date-fns'
 import BuscaCep from "cep-promise"
 import Cep from "react-simple-cep-mask";
+import Switch from "react-switch";
+import Telefone from 'react-input-mask';
 
-function User({ matricula, funcao, nome, email, telefone, numero, complemento }) {
+function User({ matricula, funcao, nome, email, numero, complemento }) {
     const [user, setUser] = useState({})
     const [dataNasc, setDataNasc] = useState("")
     const [dataAdmissao, setDataAdmissao] = useState("")
@@ -15,7 +17,16 @@ function User({ matricula, funcao, nome, email, telefone, numero, complemento })
     const [rua, setRua] = useState("");
     const [cidade, setCidade] = useState("");
     const [estado, setEstado] = useState("");
+    const [roleId, setRoleId] = useState();
+    const [checked, setChecked] = useState(false);
+    const [telefone, setTelefone] = useState("");
+    let aux
 
+    const handleChange = nextChecked => {
+        setChecked(nextChecked);
+        { checked ? aux = 2 : aux = 1 }
+        setRoleId(aux)
+    };
 
     async function loadUser() {
         let url = window.location.href.split('/')
@@ -29,6 +40,11 @@ function User({ matricula, funcao, nome, email, telefone, numero, complemento })
             setRua(res.data.rua)
             setCidade(res.data.cidade)
             setEstado(res.data.estado)
+            setTelefone(res.data.telefone)
+            aux = res.data.roleId
+            if (aux === 1) {
+                setChecked(true)
+            }
         })
     }
 
@@ -61,7 +77,7 @@ function User({ matricula, funcao, nome, email, telefone, numero, complemento })
     async function saveUser() {
 
         await api.put(`/user/update/${user.matricula}`, {
-            matricula, funcao, nome, email, telefone,
+            matricula, roleId, funcao, nome, email, telefone,
             dataNasc: `${dataNasc}T16:08:08.061Z`,
             dataAdmissao: `${dataAdmissao}T16:08:08.061Z`,
             cep, numero, rua, complemento, cidade, estado
@@ -121,6 +137,12 @@ function User({ matricula, funcao, nome, email, telefone, numero, complemento })
                 <hr />
                 <S.Content>
                     <div id="user">
+                        <label for="admin">Administrador:
+                            <Switch id="admin" name="content" disabled={true}
+                                checked={checked} onChange={handleChange}
+                                onColor={'#8A2BE2'} height={20} width={50}
+                            />
+                        </label>
                         <label>Matrícula:
                     <input name="content" disabled={true} defaultValue={user.matricula} onChange={e => matricula = (e.target.value)} /> </label>
                         <label>Função:
@@ -132,9 +154,11 @@ function User({ matricula, funcao, nome, email, telefone, numero, complemento })
                         <label>Email:
                     <input name="content" disabled={true} defaultValue={user.email} onChange={e => email = (e.target.value)} /> </label>
                         <label>Telefone:
-                    <input name="content" disabled={true} defaultValue={user.telefone} onChange={e => telefone = (e.target.value)} /> </label>
+                    <Telefone disabled={true} mask="(99) 99999 9999" value={telefone} name="content" onChange={e => setTelefone(e.target.value)} /> </label>
+
                         <label>Data de Nascimento:
                     <input name="content" disabled={true} defaultValue={dataNasc} type="date" onChange={e => setDataNasc(e.target.value)} /> </label>
+
 
                     </div>
                     <br />

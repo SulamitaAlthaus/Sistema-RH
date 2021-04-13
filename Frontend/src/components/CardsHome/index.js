@@ -13,9 +13,8 @@ function CardsHome() {
                         <h2>Usuários</h2>
                     </div>
                     <S.Links>
-                        <a>Cadastrar novos usuários</a>
+                        <a href="/newuser">Cadastrar novos usuários</a>
                         <a  href="/users">Listar usuários cadastrados</a>
-                        <a>Editar usuários cadastrados</a>
                     </S.Links>
                 </a>
             </S.Card>

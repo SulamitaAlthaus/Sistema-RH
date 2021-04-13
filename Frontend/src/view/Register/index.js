@@ -18,6 +18,7 @@ function Register() {
     const [cep, setCep] = useState("");
     const [cnpj, setCnpj] = useState("");
     const [mask, setMask] = useState("");
+    const [matricula, setMatricula] = useState("");
     const [nome, setNome] = useState("");
     const [telefone, setTelefone] = useState("");
     const [telefoneA, setTelefoneA] = useState("");
@@ -87,8 +88,8 @@ function Register() {
         }
     }
 
-    function ValidatePassword(valor){
-        if(password1 === valor){
+    function ValidatePassword(valor) {
+        if (password1 === valor) {
             setPassword(valor)
             document.getElementById('password2').setAttribute("style", "border-color: #CACFD2");
         } else {
@@ -128,28 +129,28 @@ function Register() {
 
     }
 
-    async function saveAdmin() { 
-            await api.post(`/register/newuser`,
-                {
-                    companyId, nome, email, telefone: telefoneA, dataNasc: `${dataNascimento}T16:08:08.061Z`,
-                    funcao, dataAdmissao: `${dataAdm}T16:08:08.061Z`, password,
-                    cep, numero, rua: ruaA, complemento, cidade: cidadeA, estado: estadoA, roleId: 1
+    async function saveAdmin() {
+        await api.post(`/register/newuser`,
+            {
+                companyId, matricula, nome, email, telefone: telefoneA, dataNasc: `${dataNascimento}T16:08:08.061Z`,
+                funcao, dataAdmissao: `${dataAdm}T16:08:08.061Z`, password,
+                cep, numero, rua: ruaA, complemento, cidade: cidadeA, estado: estadoA, roleId: 1
+            }
+        ).then(() => {
+            window.location.replace('/')
+        }).catch((err) => {
+            setMsgErrorUser("Verifique os campos em vermelho")
+            let admin = document.getElementsByName("admin")
+            for (var i = 0; i < admin.length; i++) {
+                if (!admin[i].value) {
+                    admin[i].setAttribute("style", "border-color: #FF0000");
+                } else {
+                    admin[i].setAttribute("style", "border-color: #CACFD2");
                 }
-            ).then(() => {
-                window.location.replace('/home')
-            }).catch((err) => {
-                setMsgErrorUser("Verifique os campos em vermelho")
-                let admin = document.getElementsByName("admin")
-                for (var i = 0; i < admin.length; i++) {
-                    if (!admin[i].value) {
-                        admin[i].setAttribute("style", "border-color: #FF0000");
-                    } else {
-                        admin[i].setAttribute("style", "border-color: #CACFD2");
-                    }
-                }
-            })
-            
-        if(dataNascimento === "" || dataAdm === ""){
+            }
+        })
+
+        if (dataNascimento === "" || dataAdm === "") {
             document.getElementById("dataNasc").setAttribute("style", "border-color: #FF0000");
             document.getElementById("dataAdmissao").setAttribute("style", "border-color: #FF0000");
         }
@@ -200,6 +201,8 @@ function Register() {
                     {!msgErrorUser ? null : <div id="msgErrorUser"> <p>{msgErrorUser}</p></div>}
                     <h1>Administrador</h1>
                     <form>
+                        <label for="matricula">Matricula:</label>
+                        <input id="matricula" type="text" name="admin" onChange={e => setMatricula(e.target.value)} />
                         <label for="nome">Nome:</label>
                         <input id="nome" type="text" name="admin" onChange={e => setNome(e.target.value)} /><br />
                         <label for="email">Email:</label>
@@ -215,9 +218,9 @@ function Register() {
                         <input id="dataAdmissao" type="date" defaultValue={date}
                             min="1920-01-01" max={date} name="admin" onChange={e => setDataAdm(e.target.value)} /><br />
                         <label for="password1">Senha:</label>
-                        <input id="password1" type="password" name="admin" onChange={e => setPassword1(e.target.value)}/><br />
+                        <input id="password1" type="password" name="admin" onChange={e => setPassword1(e.target.value)} /><br />
                         <label for="password2">Confirme a Senha:</label>
-                        <input id="password2" type="password" name="admin" onChange={e => ValidatePassword(e.target.value)}/>
+                        <input id="password2" type="password" name="admin" onChange={e => ValidatePassword(e.target.value)} />
                         <h3>Endereço</h3>
                         {!msgErrorCepA ? null : <div id="msgErrorCepA"> <p>{msgErrorCepA}</p></div>}
                         <label for="cep">CEP:</label>

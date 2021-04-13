@@ -6,7 +6,6 @@ const User = db.define('users', {
     matricula: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         primaryKey: true
     },
     nome: {

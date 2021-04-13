@@ -14,6 +14,7 @@ function NewUser() {
     const [date, setDate] = useState();
     const [cep, setCep] = useState("");
     const [mask, setMask] = useState("");
+    const [matricula, setMatricula] = useState("");
     const [nome, setNome] = useState("");
     const [telefone, setTelefone] = useState("");
     const [numero, setNumero] = useState("");
@@ -31,11 +32,10 @@ function NewUser() {
     const [checked, setChecked] = useState(false);
     const company = localStorage.getItem('@companyId')
 
-    
+
     const handleChange = nextChecked => {
-        console.log(roleId)
         setChecked(nextChecked);
-        {checked ? setRoleId(1) : setRoleId(2)}
+        { checked ? setRoleId(1) : setRoleId(2) }
     };
 
     function defineDate() {
@@ -70,7 +70,7 @@ function NewUser() {
         console.log(roleId)
         await api.post(`/register/newuser`,
             {
-                companyId: company, nome, email, telefone, dataNasc: `${dataNascimento}T16:08:08.061Z`,
+                companyId: company, matricula, nome, email, telefone, dataNasc: `${dataNascimento}T16:08:08.061Z`,
                 funcao, dataAdmissao: `${dataAdm}T16:08:08.061Z`, password,
                 cep, numero, rua, complemento, cidade, estado, roleId
             }
@@ -115,6 +115,8 @@ function NewUser() {
                             checked={checked}
                             onColor={'#8A2BE2'} height={20} width={50}
                         /></label>
+                    <label for="matricula">Matricula:
+                            <input id="matricula" type="text" name="user" onChange={e => setMatricula(e.target.value)} /></label>
                     <label for="nome">Nome:
                         <input id="nome" type="text" name="user" onChange={e => setNome(e.target.value)} /></label>
                     <label for="email">Email:

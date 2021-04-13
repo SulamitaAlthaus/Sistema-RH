@@ -16,7 +16,6 @@ export const Container = styled.div`
     hr{
         background-color: #8A2BE2; 
         width: 90%;
-
     }
 `;
 
