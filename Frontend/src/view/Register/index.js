@@ -202,7 +202,7 @@ function Register() {
                     <h1>Administrador</h1>
                     <form>
                         <label for="matricula">Matricula:</label>
-                        <input id="matricula" type="text" name="admin" onChange={e => setMatricula(e.target.value)} />
+                        <input id="matricula" type="text" name="admin" onChange={e => setMatricula(e.target.value)} /><br />
                         <label for="nome">Nome:</label>
                         <input id="nome" type="text" name="admin" onChange={e => setNome(e.target.value)} /><br />
                         <label for="email">Email:</label>

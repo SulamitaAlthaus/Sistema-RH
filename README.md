@@ -5,14 +5,14 @@
 
 ### Features
     Admin
-    - Cadastrar de funcionários
+    - Cadastrar funcionários
     - Visualizar e disparar de Holerites
     - Anuncio de vagas internas da empresa
-    - Visualização de candidatos para as vagas disponíveis
+    - Visualizar candidatos para as vagas disponíveis
 
     Funcionário
-    - Visualização de seus dados registrados na empresa
-    - Solicitação de revisão dos dados
+    - Visualizar seus dados registrados na empresa
+    - Solicitar de revisão dos dados
     - Visualizar Holerite
     - Visualizar vagas disponíveis na empresa
     - Candidatar a alguma vaga

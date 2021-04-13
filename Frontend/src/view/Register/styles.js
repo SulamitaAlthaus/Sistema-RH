@@ -93,7 +93,11 @@ export const Form = styled.div`
         font-size: 0.2;
         margin:-15px 0;
     }
-    h1,h3{
+    h1{
+        font-size: 25px;
+        margin-bottom: 2px;
+    }
+    h3{
         margin-bottom: 2px;
     }
     label{
@@ -122,7 +126,7 @@ export const Form = styled.div`
             }
         }
     }
-    #nome, #email, #segmento{
+    #matricula, #nome, #email, #segmento{
         width: 60%;
     }
     #telefone{
